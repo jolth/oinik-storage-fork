@@ -1,6 +1,5 @@
 module.exports = {
     "env": {
-        "browser": true,
         "es2021": true,
         "node": true
     },
@@ -22,7 +21,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "semi": ["error", "always"],
+    "semi": ["error", "always"],
         "quotes": ["error", "double"]
     }
-}
+};
