@@ -8,8 +8,8 @@
       "password": "qwerty"
     },
     "httpServer": {
-      "host": "localhost",
-      "port": 5000
+      "host": "",
+      "port": 15000
     }
   }
 }
