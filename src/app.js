@@ -18,6 +18,8 @@
 import config from "config";
 import express from "express";
 import deviceRoutes from "./routes/devices.js";
+import { errorHandler } from "./middleware/error.js";
+import logger from "./logger.js";
 
 const httpServer = config.get("api.httpServer");
 
@@ -26,10 +28,16 @@ app.use(express.json());
 
 app.use('/devices', deviceRoutes);
 
-app.get('/', (req, res) => {
-  res.status(200).send('oinik storage')
+// 4xx
+app.use(async (req, res, next) => {
+  //res.status(404).json({error: `route ${req.path}. Not found`})
+  const err = new Error(`route ${req.path}. Not found`);
+  err.status = 404;
+  next(err);
 })
 
+app.use(errorHandler);
+
 app.listen(httpServer.port, httpServer.host, () => {
-  console.log(`oinik storage running on port ${httpServer.port}`);
+    logger.info(`oinik storage running on port ${httpServer.host}:${httpServer.port}`);
 })
