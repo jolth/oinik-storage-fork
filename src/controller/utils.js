@@ -1,5 +1,6 @@
 import pool from "../db.js"; 
 import logger from "../logger.js";
+import { EntityNotExist } from "../error.js";
 
 export const fetchAllBy = async(params={}, table) => {
   const [key, value] = Object.entries(params).flat();
@@ -19,8 +20,7 @@ export const fetchAllBy = async(params={}, table) => {
   }
 
   if (!row) {
-    // create an EntityNotExist - DBError
-    throw new Error("The entity not exist")
+    throw new EntityNotExist(`The entity ${key}=${value} does not exist in the ${table} table.`);
   }
   return row;
 }
